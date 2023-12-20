@@ -21,15 +21,16 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
         app:srcCompat="@drawable/rabbit" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
-        android:fontFamily="@font/Kenney_Blocks"
-        android:textSize="32sp"
-        android:textColor="@android:color/white"
         android:backgroundTint="#bb8044"
-        android:onClick="startGame"/>
+        android:fontFamily="@font/kenney_blocks"
+        android:onClick="startGame"
+        android:text="Start"
+        android:textColor="@android:color/white"
+        android:textSize="32sp" />
 
 
 </LinearLayout>
