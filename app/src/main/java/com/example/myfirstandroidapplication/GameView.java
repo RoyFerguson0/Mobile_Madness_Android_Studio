@@ -47,8 +47,21 @@ public class GameView extends View {
         super(context);
         this.context = context;
         background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
-        ground = BitmapFactory.decodeResource(getResources(),R.drawable.ground);
-        rabbit = BitmapFactory.decodeResource(getResources(),R.drawable.rabbit);
+        //ground = BitmapFactory.decodeResource(getResources(),R.drawable.ground);
+        //rabbit = BitmapFactory.decodeResource(getResources(),R.drawable.rabbit);
+
+        Bitmap bmp;
+        int width=300;
+        int height=300;
+        int height2 = 600;
+
+
+        bmp =BitmapFactory.decodeResource(getResources(),R.drawable.ground);//image is your image
+        ground =Bitmap.createScaledBitmap(bmp, width,height2, true);
+
+        bmp =BitmapFactory.decodeResource(getResources(),R.drawable.rabbit);//image is your image
+        rabbit =Bitmap.createScaledBitmap(bmp, width,height, true);
+
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -70,7 +83,7 @@ public class GameView extends View {
         healthPaint.setColor(Color.GREEN);
         random = new Random();
         rabbitX = dWidth / 2 - rabbit.getWidth() / 2;
-        rabbitY = dHeight - ground.getHeight() - rabbit.getHeight();
+        rabbitY = (dHeight + 450) - ground.getHeight() - rabbit.getHeight();
         spikes = new ArrayList<>();
         explosions = new ArrayList<>();
         for(int i=0; i<3; i++){
@@ -92,7 +105,7 @@ public class GameView extends View {
                 spikes.get(i).spikeFrame = 0;
             }
             spikes.get(i).spikeY += spikes.get(i).spikeVelocity;
-            if(spikes.get(i).spikeY + spikes.get(i).getSpikeHeight() >= dHeight - ground.getHeight()){
+            if(spikes.get(i).spikeY + spikes.get(i).getSpikeHeight() >= (dHeight +500) - ground.getHeight()){
                 points += 10;
                 Explosion explosion = new Explosion(context);
                 explosion.explosionX = spikes.get(i).spikeX;

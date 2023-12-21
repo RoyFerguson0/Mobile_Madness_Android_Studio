@@ -17,9 +17,23 @@ public class Spike {
 
     public  Spike(Context context){
         // Initialise Spike images in the Array (Bitmap)
-        spike[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.bomb);
-        spike[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.dynamite);
-        spike[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.nuclearbomb);
+//        spike[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.bomb);
+//        spike[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.dynamite);
+//        spike[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.nuclearbomb);
+
+
+        Bitmap bmp;
+        int width=150;
+        int height=150;
+        bmp =BitmapFactory.decodeResource(context.getResources(), R.drawable.bomb);//image is your image
+        spike[0] =Bitmap.createScaledBitmap(bmp, width,height, true);
+
+        bmp =BitmapFactory.decodeResource(context.getResources(), R.drawable.dynamite);//image is your image
+        spike[1] =Bitmap.createScaledBitmap(bmp, width,height, true);
+
+        bmp =BitmapFactory.decodeResource(context.getResources(), R.drawable.nuclearbomb);//image is your image
+        spike[2] =Bitmap.createScaledBitmap(bmp, width,height, true);
+
 
         // Intialising Random
         random = new Random();
