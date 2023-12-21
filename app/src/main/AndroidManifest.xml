@@ -6,7 +6,6 @@
 
     <application
         android:allowBackup="true"
-
         android:icon="@mipmap/ic_launcher"
         android:label="Save The Bunny"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -14,7 +13,13 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name="Starter.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name="Starter.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name="FallingSky.HomeFallingSkyActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,17 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".GameOver"
+            android:name="FallingSky.GameOver"
             android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

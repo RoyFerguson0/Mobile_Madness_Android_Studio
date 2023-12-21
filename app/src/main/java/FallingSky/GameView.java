@@ -1,4 +1,4 @@
-package com.example.myfirstandroidapplication;
+package FallingSky;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
+
+import com.example.myfirstandroidapplication.R;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -46,7 +48,7 @@ public class GameView extends View {
     public GameView(Context context) {
         super(context);
         this.context = context;
-        background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         //ground = BitmapFactory.decodeResource(getResources(),R.drawable.ground);
         //rabbit = BitmapFactory.decodeResource(getResources(),R.drawable.rabbit);
 

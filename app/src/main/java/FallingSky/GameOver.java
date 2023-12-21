@@ -1,9 +1,8 @@
-package com.example.myfirstandroidapplication;
+package FallingSky;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,12 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myfirstandroidapplication.R;
+
+import java.io.FileOutputStream;
+
 public class GameOver extends AppCompatActivity {
 
     TextView tvPoints;
     TextView tvHighest;
     SharedPreferences sharedPreferences;
     ImageView ivNewHighest;
+
+    FileOutputStream outputStream;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void restart(View view){
-        Intent intent = new Intent(GameOver.this, MainActivity.class);
+        Intent intent = new Intent(GameOver.this, HomeFallingSkyActivity.class);
         startActivity(intent);
         finish();
     }

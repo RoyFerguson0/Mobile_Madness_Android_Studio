@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Starter.MenuActivity">
+
+    <TextView
+        android:id="@+id/lblTitleStarter"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:background="#403333"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#F41313"
+        android:textSize="48sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/MenuTitleStarter" />
+
+    <Button
+        android:id="@+id/btnFallingSkyGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Go To Falling Sky Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="117dp" />
+
+    <ImageButton
+        android:id="@+id/imgFallingSkyHome"
+        android:layout_width="135dp"
+        android:layout_height="205dp"
+        android:background="@drawable/fallingskyhome"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFallingSkyGame" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

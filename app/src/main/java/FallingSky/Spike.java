@@ -1,8 +1,10 @@
-package com.example.myfirstandroidapplication;
+package FallingSky;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.example.myfirstandroidapplication.R;
 
 import java.util.Random;
 
