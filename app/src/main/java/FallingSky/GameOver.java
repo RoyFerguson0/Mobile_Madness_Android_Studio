@@ -42,6 +42,10 @@ public class GameOver extends AppCompatActivity {
             editor.commit();
         }
         tvHighest.setText("" + highest);
+
+
+
+
     }
 
     public void restart(View view){

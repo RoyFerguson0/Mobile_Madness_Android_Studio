@@ -41,6 +41,24 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFallingSkyGame" />
+        tools:layout_editor_absoluteY="165dp" />
+
+    <Button
+        android:id="@+id/btnMathsQuizGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Go To Maths Quiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="384dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="115dp"
+        android:layout_height="207dp"
+        android:background="@drawable/mathsquizgobutton"
+        app:layout_constraintTop_toBottomOf="@+id/btnMathsQuizGame"
+        tools:layout_editor_absoluteX="155dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
