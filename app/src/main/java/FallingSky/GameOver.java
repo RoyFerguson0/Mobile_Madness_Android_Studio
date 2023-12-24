@@ -1,5 +1,6 @@
 package FallingSky;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myfirstandroidapplication.R;
 
 import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
+
+import Starter.LeaderboardActivity;
+import Starter.MenuActivity;
 
 public class GameOver extends AppCompatActivity {
 
@@ -43,6 +48,9 @@ public class GameOver extends AppCompatActivity {
         }
         tvHighest.setText("" + highest);
 
+       // setFallingSkyHighScore(tvHighest);
+        LeaderboardActivity test = new LeaderboardActivity();
+        test.setFallingSkyHighScore(String.valueOf(highest));
 
 
 
@@ -55,6 +63,9 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void exit(View view){
+        Intent intent = new Intent(GameOver.this, MenuActivity.class);
+        startActivity(intent);
+        finish();
         finish();
     }
 }

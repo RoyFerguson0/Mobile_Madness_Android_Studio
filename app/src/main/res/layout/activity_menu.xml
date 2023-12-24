@@ -13,6 +13,7 @@
         android:background="#403333"
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
+        android:text="@string/MenuTitleStarter"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#F41313"
@@ -20,45 +21,63 @@
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/MenuTitleStarter" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnFallingSkyGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:onClick="navFallingGameHome"
         android:text="Go To Falling Sky Game"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="117dp" />
+        app:layout_constraintTop_toBottomOf="@+id/lblTitleStarter" />
 
     <ImageButton
         android:id="@+id/imgFallingSkyHome"
         android:layout_width="135dp"
         android:layout_height="205dp"
         android:background="@drawable/fallingskyhome"
+        android:onClick="navFallingGameHome"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="165dp" />
+        app:layout_constraintTop_toBottomOf="@+id/btnFallingSkyGame" />
 
     <Button
         android:id="@+id/btnMathsQuizGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:onClick="navMathsQuizMain"
         android:text="Go To Maths Quiz"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="384dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imgFallingSkyHome" />
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="115dp"
-        android:layout_height="207dp"
+        android:id="@+id/imgMathsQuizMain"
+        android:layout_width="121dp"
+        android:layout_height="220dp"
         android:background="@drawable/mathsquizgobutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMathsQuizGame"
-        tools:layout_editor_absoluteX="155dp" />
+        android:onClick="navMathsQuizMain"/>
+
+    <Button
+        android:id="@+id/btnLeaderboardScreen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="navLeaderboard"
+        android:text="Go To LeaderBoard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgMathsQuizMain" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

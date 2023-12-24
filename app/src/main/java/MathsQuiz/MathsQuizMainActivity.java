@@ -1,10 +1,19 @@
 package MathsQuiz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -13,11 +22,22 @@ import android.widget.Toast;
 
 import com.example.myfirstandroidapplication.R;
 
+import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import FallingSky.GameOver;
+import Starter.AppData;
+import Starter.LeaderboardActivity;
+import Starter.MenuActivity;
+
 public class MathsQuizMainActivity extends AppCompatActivity {
 
-    Button btn_start, btn_answer0, btn_answer1, btn_answer2, btn_answer3;
+    Button btn_start, btnExitfromMathsMain, btn_answer0, btn_answer1, btn_answer2, btn_answer3;
     TextView tv_score, tv_questions, tv_timer, tv_bottommessage;
     ProgressBar prog_timer;
+
+    FileOutputStream outputStream;
 
     Game g = new Game();
 
@@ -39,12 +59,89 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             btn_answer3.setEnabled(false);
             tv_bottommessage.setText("Time is up! " + g.getNumberCorrect() + "/" + (g.getTotalQuestions() - 1));
 
+//            try{
+//                outputStream = openFileOutput("GameHighScores", Context.MODE_PRIVATE);
+//                String highScore = String.valueOf(g.getNumberCorrect());
+//                String totalQuestions = String.valueOf(g.getTotalQuestions() - 1);
+//
+//
+//
+//                outputStream.write(highScore.getBytes());
+//                outputStream.write("\n".getBytes());
+//                outputStream.write(totalQuestions.getBytes());
+//                outputStream.close();
+//
+//            }catch (Exception ex){
+//
+//            }
+
+
+
+            LeaderboardActivity test = new LeaderboardActivity();
+            String value = String.valueOf(g.getNumberCorrect());
+            test.setMathsQuizHighScore(value);
+
+            AppData.LeaderBoard.setMathsQuizHighScore(value);
+            System.out.println(AppData.LeaderBoard.getMathsQuizHighScore());
+            String MathsQuizHighScore = AppData.LeaderBoard.getMathsQuizHighScore();
+
+//            SmsManager smsManager = SmsManager.getDefault();
+//            smsManager.sendTextMessage("phoneNo", null, "sms message", null, null);
+//
+//            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MathsQuizMainActivity.this)
+//                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .setContentTitle("textTitle")
+//                    .setContentText("textContent")
+//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//
+//            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MathsQuizMainActivity.this);
+//
+//// notificationId is a unique int for each notification that you must define.
+//            notificationManager.notify(1, mBuilder.build());
+
+//            Notification notification = new Notification.Builder(MathsQuizMainActivity.this)
+//                    .setContentTitle("New Message")
+//                    .setContentText("You've received new messages.")
+//                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .build();
+//
+//            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MathsQuizMainActivity.this);
+//            // notificationId is a unique int for each notification that you must define.
+//                        notificationManager.notify(1, notification);
+//            try {
+//                outputStream = openFileOutput("GameHighScores", Context.MODE_PRIVATE);
+//
+//
+////            outputStream.write(FallingSkyHighScore.getBytes());
+////            outputStream.write("\n".getBytes());
+//                outputStream.write(MathsQuizHighScore.getBytes());
+//                outputStream.write("\n".getBytes());
+////            outputStream.write(MathsQuizTotalQuestions.getBytes());
+////            outputStream.write("\n".getBytes());
+////            outputStream.write(MathsQuizTotalPoints.getBytes());
+////            outputStream.write("\n".getBytes());
+////            outputStream.write(MathsQuizHighScore2.getBytes());
+////            outputStream.write("\n".getBytes());
+////            outputStream.write(MathsQuizTotalQuestions2.getBytes());
+////            outputStream.write("\n".getBytes());
+////            outputStream.write(MathsQuizTotalPoints2.getBytes());
+//
+//                outputStream.close();
+//
+//                Log.i("High Score", "Operator is :::::::: " + MathsQuizHighScore);
+//                // Notification Wrote to file
+//
+//            }catch (Exception ex){
+//                //    lblGrade.setText("Error writing to file!!!");
+//                Log.i("ERROR", "NOT IN TRY CATCH");
+//            }
             final Handler handler = new Handler();
 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     btn_start.setVisibility(View.VISIBLE);
+                    btnExitfromMathsMain.setVisibility(View.VISIBLE);
                 }
             }, 4000);
 
@@ -59,6 +156,7 @@ public class MathsQuizMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maths_quiz_main);
 
         btn_start = findViewById(R.id.btn_start);
+        btnExitfromMathsMain = findViewById(R.id.btnExitfromMathsMain);
         btn_answer0 =  findViewById(R.id.btn_answer0);
         btn_answer1 = findViewById(R.id.btn_answer1);
         btn_answer2 = findViewById(R.id.btn_answer2);
@@ -83,6 +181,7 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                 Button start_button = (Button) v;
 
                 start_button.setVisibility(View.INVISIBLE);
+                btnExitfromMathsMain.setVisibility(View.INVISIBLE);
                 secondsRemaining = 30;
                 g = new Game();
                 nextTurn();
@@ -137,4 +236,14 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 
         tv_bottommessage.setText(g.getNumberCorrect() + "/" + (g.getTotalQuestions() - 1) );
     }
+
+    public void navMathsQuizExitToMenu(View view)
+    {
+        // Create an action
+        Intent MenuScreen = new Intent(getApplicationContext(), MenuActivity.class);
+        // Tell it to do it
+        startActivity(MenuScreen);
+    }
+
+
 }
