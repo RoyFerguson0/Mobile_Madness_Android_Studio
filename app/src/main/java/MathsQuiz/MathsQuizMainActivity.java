@@ -5,10 +5,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myfirstandroidapplication.R;
+//import com.example.myfirstandroidapplication.databinding.ActivityMathsQuizMainBinding;
 
 import java.io.FileOutputStream;
 import java.nio.file.Path;
@@ -43,6 +47,9 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 
     int secondsRemaining = 30;
 
+//    private ActivityMathsQuizMainBinding binding;
+    public static final String NOTIFICATION_CHANNEL_ID = "4655";
+
     CountDownTimer timer = new CountDownTimer(30000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -59,6 +66,8 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             btn_answer3.setEnabled(false);
             tv_bottommessage.setText("Time is up! " + g.getNumberCorrect() + "/" + (g.getTotalQuestions() - 1));
 
+            String one = String.valueOf(g.getNumberCorrect());
+            String two = String.valueOf(g.getTotalQuestions() - 1);
 //            try{
 //                outputStream = openFileOutput("GameHighScores", Context.MODE_PRIVATE);
 //                String highScore = String.valueOf(g.getNumberCorrect());
@@ -77,6 +86,7 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 
 
 
+
             LeaderboardActivity test = new LeaderboardActivity();
             String value = String.valueOf(g.getNumberCorrect());
             test.setMathsQuizHighScore(value);
@@ -88,6 +98,8 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 //            SmsManager smsManager = SmsManager.getDefault();
 //            smsManager.sendTextMessage("phoneNo", null, "sms message", null, null);
 //
+
+
 //            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MathsQuizMainActivity.this)
 //                    .setSmallIcon(R.mipmap.ic_launcher)
 //                    .setContentTitle("textTitle")
@@ -95,9 +107,51 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 //                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 //
 //            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MathsQuizMainActivity.this);
-//
+////
 //// notificationId is a unique int for each notification that you must define.
 //            notificationManager.notify(1, mBuilder.build());
+
+
+
+
+//            final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+//                    .setDefaults(Notification.DEFAULT_ALL)
+//                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+//                    .setSound(null)
+//                    .setContent(contentView)
+//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                    .setTicker(sTimer)
+//                    .setContentIntent(timerListIntent)
+//                    .setAutoCancel(false);
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                String id = "_channel_01";
+                int importance = NotificationManager.IMPORTANCE_LOW;
+                NotificationChannel mChannel = new NotificationChannel(id, "notification", importance);
+                mChannel.enableLights(true);
+
+                Notification notification = new Notification.Builder(getApplicationContext(), id)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Game Over")
+                        .setContentText("Time is up! You Scored: " + one + "/" + two)
+                        .build();
+
+                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (mNotificationManager != null) {
+                    mNotificationManager.createNotificationChannel(mChannel);
+                    mNotificationManager.notify(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
+                }
+            }
+
+
+
+
+
+
+
 
 //            Notification notification = new Notification.Builder(MathsQuizMainActivity.this)
 //                    .setContentTitle("New Message")
@@ -150,10 +204,54 @@ public class MathsQuizMainActivity extends AppCompatActivity {
     };
 
 
-    @Override
+
+
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "foxandroidReminderChannel";
+            String description = "Channel For Alarm Manager";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("foxandroid", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+    }
+
+
+
+
+    public static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 1001;
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        binding = ActivityMathsQuizMainBinding.inflate(getLayoutInflater());
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//
+//                String id = "_channel_01";
+//                int importance = NotificationManager.IMPORTANCE_LOW;
+//                NotificationChannel mChannel = new NotificationChannel(id, "notification", importance);
+//                mChannel.enableLights(true);
+//
+//                Notification notification = new Notification.Builder(getApplicationContext(), id)
+//                        .setSmallIcon(R.mipmap.ic_launcher)
+//                        .setContentTitle("My chat")
+//                        .setContentText("Listening for incoming messages")
+//                        .build();
+//
+//                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                if (mNotificationManager != null) {
+//                    mNotificationManager.createNotificationChannel(mChannel);
+//                    mNotificationManager.notify(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
+//                }
+//            }
+
+
         setContentView(R.layout.activity_maths_quiz_main);
+
 
         btn_start = findViewById(R.id.btn_start);
         btnExitfromMathsMain = findViewById(R.id.btnExitfromMathsMain);
@@ -183,10 +281,14 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                 start_button.setVisibility(View.INVISIBLE);
                 btnExitfromMathsMain.setVisibility(View.INVISIBLE);
                 secondsRemaining = 30;
+
+//                createNotificationChannel();
+
                 g = new Game();
                 nextTurn();
                 timer.start();
 
+//                createNotificationChannel();
 
             }
         };
