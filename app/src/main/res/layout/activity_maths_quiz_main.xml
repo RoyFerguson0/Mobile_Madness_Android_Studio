@@ -26,13 +26,13 @@
 
     <Button
         android:id="@+id/btnExitfromMathsMain"
-        android:layout_width="103dp"
-        android:layout_height="94dp"
+        android:layout_width="106dp"
+        android:layout_height="53dp"
         android:background="@color/teal_700"
         android:onClick="navMathsQuizExitToMenu"
         android:text="Exit"
         android:textColor="@color/white"
-        android:textSize="36sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +103,8 @@
                 android:layout_weight="1"
                 android:height="200dp"
                 android:backgroundTint="#67A6D8"
-                android:text="Button"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btn_answer1"
@@ -113,8 +113,8 @@
                 android:layout_weight="1"
                 android:height="200dp"
                 android:backgroundTint="#61B2D6"
-                android:text="Button"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -128,8 +128,8 @@
                 android:layout_weight="1"
                 android:height="200dp"
                 android:backgroundTint="#50B1BD"
-                android:text="Button"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btn_answer3"
@@ -138,8 +138,8 @@
                 android:layout_weight="1"
                 android:height="200dp"
                 android:backgroundTint="#378BCD"
-                android:text="Button"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="24sp" />
         </TableRow>
 
     </TableLayout>

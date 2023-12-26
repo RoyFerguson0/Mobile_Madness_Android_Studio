@@ -11,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -24,11 +25,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myfirstandroidapplication.R;
+import com.google.android.material.snackbar.Snackbar;
 //import com.example.myfirstandroidapplication.databinding.ActivityMathsQuizMainBinding;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import FallingSky.GameOver;
 import Starter.AppData;
@@ -42,13 +48,15 @@ public class MathsQuizMainActivity extends AppCompatActivity {
     ProgressBar prog_timer;
 
     FileOutputStream outputStream;
+    InputStream inStream;
 
     Game g = new Game();
 
     int secondsRemaining = 30;
 
-//    private ActivityMathsQuizMainBinding binding;
-    public static final String NOTIFICATION_CHANNEL_ID = "4655";
+    public static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 1001;
+
+    MediaPlayer music;
 
     CountDownTimer timer = new CountDownTimer(30000, 1000) {
         @Override
@@ -65,26 +73,10 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             btn_answer2.setEnabled(false);
             btn_answer3.setEnabled(false);
             tv_bottommessage.setText("Time is up! " + g.getNumberCorrect() + "/" + (g.getTotalQuestions() - 1));
+            music.stop();
 
             String one = String.valueOf(g.getNumberCorrect());
             String two = String.valueOf(g.getTotalQuestions() - 1);
-//            try{
-//                outputStream = openFileOutput("GameHighScores", Context.MODE_PRIVATE);
-//                String highScore = String.valueOf(g.getNumberCorrect());
-//                String totalQuestions = String.valueOf(g.getTotalQuestions() - 1);
-//
-//
-//
-//                outputStream.write(highScore.getBytes());
-//                outputStream.write("\n".getBytes());
-//                outputStream.write(totalQuestions.getBytes());
-//                outputStream.close();
-//
-//            }catch (Exception ex){
-//
-//            }
-
-
 
 
             LeaderboardActivity test = new LeaderboardActivity();
@@ -94,36 +86,115 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             AppData.LeaderBoard.setMathsQuizHighScore(value);
             System.out.println(AppData.LeaderBoard.getMathsQuizHighScore());
             String MathsQuizHighScore = AppData.LeaderBoard.getMathsQuizHighScore();
+            System.out.println("Testing Array output");
 
-//            SmsManager smsManager = SmsManager.getDefault();
-//            smsManager.sendTextMessage("phoneNo", null, "sms message", null, null);
+            String[] stored = new String[3];
+            int[] stored2 = new int[3];
+            int score1 = 0, score2 = 0, score3 = 0;
+            try{
+                inStream = openFileInput("MathsGameHighScore");
+
+                if(inStream != null) {
+                    InputStreamReader inputReader = new InputStreamReader(inStream);
+                    BufferedReader buffReader = new BufferedReader(inputReader);
+
+
+                    String line = "";
+
+                    int position = 0;
+                    while ((line = buffReader.readLine()) != null) {
+                        stored[position] = line;
+                        stored2[position] = Integer.parseInt(line);
+                        position++;
+                    }
+
+
+                }
+                    inStream.close();
+
+                    System.out.println(score1 + " test2 " + score2 + " test3 " + score3);
+            }catch(Exception ex){
+                // SnackBar to tell user that there is no text file
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.ReadFromFileError, Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+
+            score1 = stored2[0];
+            score2 = stored2[1];
+            score3 = stored2[2];
+            String highScore = tv_score.getText().toString();
+            int intHighScore = Integer.parseInt(highScore);
+
+
+            if(stored[0] == null || stored[1] == null || stored[2] == null){
+                // Writting out to the Text file
+                try {
+                    outputStream = openFileOutput("MathsGameHighScore", Context.MODE_APPEND);
+
+                    outputStream.write(highScore.getBytes());
+                    outputStream.write("\n".getBytes());
+                    outputStream.close();
+
+                }catch (Exception ex){
+                    // SnackBar to tell user that there is no text file
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }else {
+                Arrays.sort(stored2);
+
+//                int minHighest = 0;
+//                for(int i = 0; i <= 3; i++){
+//                    minHighest = Math.min(minHighest, stored2[i]);
+//                }
 //
+//                // Compare the Values to reWrite the TextFile Undated values
+//                int[] numbers = {1,2,3};
+//                for(int i = 0; i <= 3; i++){
+//                    if(minHighest == stored2[i]){
+//                        stored2[i] = minHighest;
+//                        break;
+//                    }
+//                }
+
+//                score1 = stored2[0];
+//                score2 = stored2[1];
+//                score3 = stored2[2];
+
+                if(intHighScore > score1){
+                    score1 = intHighScore;
+                }else if (intHighScore > score2){
+                    score2 = intHighScore;
+                }else if (intHighScore > score3){
+                    score3 = intHighScore;
+                }
+
+                String score4 = String.valueOf(score1);
+                String score5 = String.valueOf(score2);
+                String score6 = String.valueOf(score3);
 
 
-//            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MathsQuizMainActivity.this)
-//                    .setSmallIcon(R.mipmap.ic_launcher)
-//                    .setContentTitle("textTitle")
-//                    .setContentText("textContent")
-//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//
-//            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MathsQuizMainActivity.this);
-////
-//// notificationId is a unique int for each notification that you must define.
-//            notificationManager.notify(1, mBuilder.build());
+                // Writting out to the Text file
+                try {
+                    outputStream = openFileOutput("MathsGameHighScore", Context.MODE_PRIVATE);
+
+                    outputStream.write(score4.getBytes());
+                    outputStream.write("\n".getBytes());
+                    outputStream.write(score5.getBytes());
+                    outputStream.write("\n".getBytes());
+                    outputStream.write(score6.getBytes());
+                    outputStream.close();
+
+                } catch (Exception ex) {
+                    // SnackBar to tell user that there is no text file
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
 
 
 
 
-//            final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-//                    .setDefaults(Notification.DEFAULT_ALL)
-//                    .setSmallIcon(R.mipmap.ic_launcher)
-//                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
-//                    .setSound(null)
-//                    .setContent(contentView)
-//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//                    .setTicker(sTimer)
-//                    .setContentIntent(timerListIntent)
-//                    .setAutoCancel(false);
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -146,49 +217,6 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                 }
             }
 
-
-
-
-
-
-
-
-//            Notification notification = new Notification.Builder(MathsQuizMainActivity.this)
-//                    .setContentTitle("New Message")
-//                    .setContentText("You've received new messages.")
-//                    .setSmallIcon(R.mipmap.ic_launcher)
-//                    .build();
-//
-//            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MathsQuizMainActivity.this);
-//            // notificationId is a unique int for each notification that you must define.
-//                        notificationManager.notify(1, notification);
-//            try {
-//                outputStream = openFileOutput("GameHighScores", Context.MODE_PRIVATE);
-//
-//
-////            outputStream.write(FallingSkyHighScore.getBytes());
-////            outputStream.write("\n".getBytes());
-//                outputStream.write(MathsQuizHighScore.getBytes());
-//                outputStream.write("\n".getBytes());
-////            outputStream.write(MathsQuizTotalQuestions.getBytes());
-////            outputStream.write("\n".getBytes());
-////            outputStream.write(MathsQuizTotalPoints.getBytes());
-////            outputStream.write("\n".getBytes());
-////            outputStream.write(MathsQuizHighScore2.getBytes());
-////            outputStream.write("\n".getBytes());
-////            outputStream.write(MathsQuizTotalQuestions2.getBytes());
-////            outputStream.write("\n".getBytes());
-////            outputStream.write(MathsQuizTotalPoints2.getBytes());
-//
-//                outputStream.close();
-//
-//                Log.i("High Score", "Operator is :::::::: " + MathsQuizHighScore);
-//                // Notification Wrote to file
-//
-//            }catch (Exception ex){
-//                //    lblGrade.setText("Error writing to file!!!");
-//                Log.i("ERROR", "NOT IN TRY CATCH");
-//            }
             final Handler handler = new Handler();
 
             handler.postDelayed(new Runnable() {
@@ -204,52 +232,9 @@ public class MathsQuizMainActivity extends AppCompatActivity {
     };
 
 
-
-
-    private void createNotificationChannel() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "foxandroidReminderChannel";
-            String description = "Channel For Alarm Manager";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("foxandroid", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-
-        }
-    }
-
-
-
-
-    public static final int PRIMARY_FOREGROUND_NOTIF_SERVICE_ID = 1001;
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding = ActivityMathsQuizMainBinding.inflate(getLayoutInflater());
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//
-//                String id = "_channel_01";
-//                int importance = NotificationManager.IMPORTANCE_LOW;
-//                NotificationChannel mChannel = new NotificationChannel(id, "notification", importance);
-//                mChannel.enableLights(true);
-//
-//                Notification notification = new Notification.Builder(getApplicationContext(), id)
-//                        .setSmallIcon(R.mipmap.ic_launcher)
-//                        .setContentTitle("My chat")
-//                        .setContentText("Listening for incoming messages")
-//                        .build();
-//
-//                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//                if (mNotificationManager != null) {
-//                    mNotificationManager.createNotificationChannel(mChannel);
-//                    mNotificationManager.notify(PRIMARY_FOREGROUND_NOTIF_SERVICE_ID, notification);
-//                }
-//            }
-
-
         setContentView(R.layout.activity_maths_quiz_main);
 
 
@@ -282,14 +267,12 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                 btnExitfromMathsMain.setVisibility(View.INVISIBLE);
                 secondsRemaining = 30;
 
-//                createNotificationChannel();
-
+                music = MediaPlayer.create (MathsQuizMainActivity.this, R.raw.mathsgamebackground);
+                music.start();
+                tv_score.setText("0");
                 g = new Game();
                 nextTurn();
                 timer.start();
-
-//                createNotificationChannel();
-
             }
         };
 
@@ -298,11 +281,19 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button buttonClicked = (Button) v;
 
-                int answerSelected = Integer.parseInt(buttonClicked.getText().toString());
+                try {
+                    int answerSelected = Integer.parseInt(buttonClicked.getText().toString());
 
-                g.checkAnswer(answerSelected);
-                tv_score.setText(Integer.toString(g.getScore()));
-                nextTurn();
+                    g.checkAnswer(answerSelected);
+                    tv_score.setText(Integer.toString(g.getScore()));
+                    nextTurn();
+                }catch(Exception ex){
+
+                    // SnackBar to tell user to press the go button to begin game
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_answer0), R.string.PressGo, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+                }
 
             }
         };

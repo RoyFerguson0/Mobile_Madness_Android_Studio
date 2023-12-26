@@ -56,7 +56,6 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
-<!--        <receiver android:name="MathsQuiz.AlarmReceiver"/>-->
     </application>
 
 </manifest>
