@@ -50,7 +50,6 @@ public class LeaderboardActivity extends AppCompatActivity {
 
             }
 
-
         }catch (Exception ex){
 
         }

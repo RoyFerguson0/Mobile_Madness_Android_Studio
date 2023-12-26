@@ -114,9 +114,6 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 
                     System.out.println(score1 + " test2 " + score2 + " test3 " + score3);
             }catch(Exception ex){
-                // SnackBar to tell user that there is no text file
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.ReadFromFileError, Snackbar.LENGTH_LONG);
-                snackbar.show();
             }
 
             score1 = stored2[0];
@@ -143,24 +140,6 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             }else {
                 Arrays.sort(stored2);
 
-//                int minHighest = 0;
-//                for(int i = 0; i <= 3; i++){
-//                    minHighest = Math.min(minHighest, stored2[i]);
-//                }
-//
-//                // Compare the Values to reWrite the TextFile Undated values
-//                int[] numbers = {1,2,3};
-//                for(int i = 0; i <= 3; i++){
-//                    if(minHighest == stored2[i]){
-//                        stored2[i] = minHighest;
-//                        break;
-//                    }
-//                }
-
-//                score1 = stored2[0];
-//                score2 = stored2[1];
-//                score3 = stored2[2];
-
                 if(intHighScore > score1){
                     score1 = intHighScore;
                 }else if (intHighScore > score2){
@@ -172,7 +151,6 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                 String score4 = String.valueOf(score1);
                 String score5 = String.valueOf(score2);
                 String score6 = String.valueOf(score3);
-
 
                 // Writting out to the Text file
                 try {
@@ -193,6 +171,10 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             }
 
 
+            String correct = String.valueOf(g.getNumberCorrect());
+            String total = String.valueOf(g.getTotalQuestions() -1);
+
+            writeScoreToFile(correct, total);
 
 
 
@@ -231,7 +213,87 @@ public class MathsQuizMainActivity extends AppCompatActivity {
         }
     };
 
+public void writeScoreToFile(String correct, String total){
+    String[] stored = new String[2];
+    int[] stored2 = new int[2];
+    int score1 = 0, score2 = 0;
 
+    int total2 = Integer.parseInt(total);
+    int correct2 = Integer.parseInt(correct);
+
+    try{
+        inStream = openFileInput("MathsGameTotalScore");
+
+        if(inStream != null) {
+            InputStreamReader inputReader = new InputStreamReader(inStream);
+            BufferedReader buffReader = new BufferedReader(inputReader);
+
+
+            String line = "";
+
+            int position = 0;
+            while ((line = buffReader.readLine()) != null) {
+                stored[position] = line;
+                stored2[position] = Integer.parseInt(line);
+                position++;
+            }
+
+        }
+        inStream.close();
+    }catch(Exception ex){
+    }
+
+    score1 = stored2[0];
+    score2 = stored2[1];
+
+
+    if(stored[0] == null || stored[1] == null){
+        // Writting out to the Text file if nothing has been added to it
+        try {
+            outputStream = openFileOutput("MathsGameTotalScore", Context.MODE_APPEND);
+
+            outputStream.write(correct.getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.write(total.getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.close();
+
+        }catch (Exception ex){
+            // SnackBar to tell user that there is no text file
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+    }else {
+
+
+        double totalValue = (((double) score1 / score2) * 100);
+        double currectTotalValue = (((double) correct2 / total2) * 100);
+        System.out.println("Correct Vs Total");
+        System.out.println(totalValue);
+        System.out.println(currectTotalValue);
+        System.out.println(score1);
+        System.out.println(score2);
+
+        if(currectTotalValue > totalValue) {
+
+            // Writting out to the Text file
+            try {
+                outputStream = openFileOutput("MathsGameTotalScore", Context.MODE_PRIVATE);
+
+                outputStream.write(correct.getBytes());
+                outputStream.write("\n".getBytes());
+                outputStream.write(total.getBytes());
+                outputStream.write("\n".getBytes());
+                outputStream.close();
+
+            } catch (Exception ex) {
+                // SnackBar to tell user that there is no text file
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        }
+    }
+}
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
