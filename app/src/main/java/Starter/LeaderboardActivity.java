@@ -2,6 +2,7 @@ package Starter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,12 +17,13 @@ import java.io.OutputStream;
 
 public class LeaderboardActivity extends AppCompatActivity {
     TextView lblFallingSkyHighScore, lblMathsHighScoreOne, lblMathsHighScoreTwo, lblMathsHighScoreThree, lblTotalQuestionsRight, lblPlayerName;
-    String[] stored = {"0","0","0","0","0","0","0"};
+    String[] stored = new String[]{"0","0","0","0","0","0","0"};
     String score;
     InputStream inStream;
     OutputStream outputStream;
 
     public void getScores(String file) {
+        stored = new String[]{"0", "0", "0", "0", "0", "0", "0"};
         try{
             inStream = openFileInput(file);
 
@@ -85,6 +87,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     private String MathsQuizPoints;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,14 +107,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         lblMathsHighScoreTwo.setText(stored[1]);
         lblMathsHighScoreThree.setText(stored[2]);
         getScores("MathsGameTotalScore");
-        String message = stored[0] + "/" + stored[1];
-        lblTotalQuestionsRight.setText(message);
+        lblTotalQuestionsRight.setText(stored[0] + "/" + stored[1]);
 
         getScores("PlayerName");
-        if(stored[0].equals("") || stored[0] == null) {
-            lblPlayerName.setText("Anonymous User");
+        if(stored[0].equals("0") || stored[0] == null) {
+            lblPlayerName.setText("User: Anonymous");
         }else{
-            lblPlayerName.setText(stored[0]);
+            lblPlayerName.setText("User: " + stored[0]);
         }
     }
 

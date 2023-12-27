@@ -47,6 +47,18 @@ public class MenuActivity extends AppCompatActivity {
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
+        }else{
+            try {
+                outputStream = openFileOutput("PlayerName", Context.MODE_PRIVATE);
+
+                outputStream.write("User: Anonymous".getBytes());
+                outputStream.close();
+
+            } catch (Exception ex) {
+                // SnackBar to tell user that there is no text file
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
         }
     }
 
