@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class LeaderboardActivity extends AppCompatActivity {
-    TextView lblFallingSkyHighScore, lblMathsHighScoreOne, lblMathsHighScoreTwo, lblMathsHighScoreThree, lblTotalQuestionsRight;
+    TextView lblFallingSkyHighScore, lblMathsHighScoreOne, lblMathsHighScoreTwo, lblMathsHighScoreThree, lblTotalQuestionsRight, lblPlayerName;
     String[] stored = {"0","0","0","0","0","0","0"};
     String score;
     InputStream inStream;
@@ -95,6 +95,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         lblMathsHighScoreTwo = findViewById(R.id.lblMathsHighScoreTwo);
         lblMathsHighScoreThree = findViewById(R.id.lblMathsTotalPoints);
         lblTotalQuestionsRight = findViewById(R.id.lblTotalQuestionsRight);
+        lblPlayerName = findViewById(R.id.lblPlayerName);
 
         getScores("FallingSkyHighScore");
         lblFallingSkyHighScore.setText(stored[0]);
@@ -105,6 +106,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         getScores("MathsGameTotalScore");
         String message = stored[0] + "/" + stored[1];
         lblTotalQuestionsRight.setText(message);
+
+        getScores("PlayerName");
+        if(stored[0].equals("") || stored[0] == null) {
+            lblPlayerName.setText("Anonymous User");
+        }else{
+            lblPlayerName.setText(stored[0]);
+        }
     }
 
     public void navLeaderboardExitToMenu(View view)

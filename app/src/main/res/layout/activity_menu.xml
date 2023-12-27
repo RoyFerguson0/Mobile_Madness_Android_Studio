@@ -6,78 +6,133 @@
     android:layout_height="match_parent"
     tools:context="Starter.MenuActivity">
 
-    <TextView
-        android:id="@+id/lblTitleStarter"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="97dp"
-        android:background="#403333"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:gravity="center"
-        android:text="@string/MenuTitleStarter"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#F41313"
-        android:textSize="48sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-    <Button
-        android:id="@+id/btnFallingSkyGame"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="navFallingGameHome"
-        android:text="Go To Falling Sky Game"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTitleStarter" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/imgFallingSkyHome"
-        android:layout_width="135dp"
-        android:layout_height="205dp"
-        android:background="@drawable/fallingskyhome"
-        android:onClick="navFallingGameHome"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFallingSkyGame" />
+            <TextView
+                android:id="@+id/lblTitleStarter"
+                android:layout_width="match_parent"
+                android:layout_height="97dp"
+                android:background="#403333"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:text="@string/MenuTitleStarter"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#F41313"
+                android:textSize="48sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnMathsQuizGame"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:onClick="navMathsQuizMain"
-        android:text="Go To Maths Quiz"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgFallingSkyHome" />
+            <ImageButton
+                android:id="@+id/imgFallingSkyHome"
+                android:layout_width="135dp"
+                android:layout_height="205dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/fallingskyhome"
+                android:onClick="navFallingGameHome"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnFallingSkyGame" />
 
-    <ImageButton
-        android:id="@+id/imgMathsQuizMain"
-        android:layout_width="121dp"
-        android:layout_height="220dp"
-        android:background="@drawable/mathsquizgobutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMathsQuizGame"
-        android:onClick="navMathsQuizMain"/>
+            <Button
+                android:id="@+id/btnFallingSkyGame"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:onClick="navFallingGameHome"
+                android:text="Go To Falling Sky Game"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblTitleStarter" />
 
-    <Button
-        android:id="@+id/btnLeaderboardScreen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="navLeaderboard"
-        android:text="Go To LeaderBoard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgMathsQuizMain" />
+            <Button
+                android:id="@+id/btnMathsQuizGame"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:onClick="navMathsQuizMain"
+                android:text="Go To Maths Quiz"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgFallingSkyHome" />
 
+            <Button
+                android:id="@+id/btnLeaderboardScreen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:onClick="navLeaderboard"
+                android:text="Go To LeaderBoard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgMathsQuizMain" />
+
+            <ImageButton
+                android:id="@+id/imgMathsQuizMain"
+                android:layout_width="121dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/mathsquizgobutton"
+                android:onClick="navMathsQuizMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnMathsQuizGame" />
+
+            <EditText
+                android:id="@+id/txtName"
+                android:layout_width="112dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintBottom_toTopOf="@+id/btnFallingSkyGame"
+                app:layout_constraintEnd_toStartOf="@+id/btnSaveName"
+                app:layout_constraintStart_toEndOf="@+id/lblMenuEnterName" />
+
+            <TextView
+                android:id="@+id/lblMenuEnterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="11dp"
+                android:text="Enter Name:"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/btnFallingSkyGame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblTitleStarter"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/btnSaveName"
+                android:layout_width="63dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="81dp"
+                android:layout_marginBottom="1dp"
+                android:onClick="saveNamebtn"
+                android:text="Save"
+                app:layout_constraintBottom_toTopOf="@+id/btnFallingSkyGame"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblTitleStarter" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
