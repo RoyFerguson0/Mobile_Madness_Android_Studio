@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Calculator</string>
+    <string name="app_name">Mobile Madness</string>
     <string name="MenuTitleStarter">Games Shop</string>
     <string name="PressGo">You have got to PRESS GO to Begin Game</string>
     <string name="WriteToFileError">Unable to Write to File</string>

@@ -2,10 +2,8 @@ package Starter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,18 +14,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import FallingSky.GameOver;
-
 public class LeaderboardActivity extends AppCompatActivity {
-    TextView lblFallingSkyHighScore, lblMathsQuizScore, lblMathsTotalPoints, lblMathsQuizTotalQuestions;
+    TextView lblFallingSkyHighScore, lblMathsHighScoreOne, lblMathsHighScoreTwo, lblMathsHighScoreThree, lblTotalQuestionsRight;
     String[] stored = {"0","0","0","0","0","0","0"};
     String score;
     InputStream inStream;
     OutputStream outputStream;
 
-    public void getScores() {
+    public void getScores(String file) {
         try{
-            inStream = openFileInput("GameHighScores");
+            inStream = openFileInput(file);
 
             if(inStream != null){
                 // To read the file Character at a time (InputStreadReader)
@@ -95,15 +91,20 @@ public class LeaderboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leaderboard);
 
         lblFallingSkyHighScore = findViewById(R.id.lblFallingSkyHighScore);
-        lblMathsQuizScore = findViewById(R.id.lblMathsQuizScore);
-        lblMathsQuizTotalQuestions = findViewById(R.id.lblMathsQuizTotalQuestions);
-        lblMathsTotalPoints = findViewById(R.id.lblMathsTotalPoints);
+        lblMathsHighScoreOne = findViewById(R.id.lblMathsHighScoreOne);
+        lblMathsHighScoreTwo = findViewById(R.id.lblMathsHighScoreTwo);
+        lblMathsHighScoreThree = findViewById(R.id.lblMathsTotalPoints);
+        lblTotalQuestionsRight = findViewById(R.id.lblTotalQuestionsRight);
 
-        getScores();
+        getScores("FallingSkyHighScore");
         lblFallingSkyHighScore.setText(stored[0]);
-        lblMathsQuizScore.setText(stored[1]);
-        lblMathsTotalPoints.setText(stored[2]);
-        lblMathsQuizTotalQuestions.setText(stored[3]);
+        getScores("MathsGameHighScore");
+        lblMathsHighScoreOne.setText(stored[0]);
+        lblMathsHighScoreTwo.setText(stored[1]);
+        lblMathsHighScoreThree.setText(stored[2]);
+        getScores("MathsGameTotalScore");
+        String message = stored[0] + "/" + stored[1];
+        lblTotalQuestionsRight.setText(message);
     }
 
     public void navLeaderboardExitToMenu(View view)
