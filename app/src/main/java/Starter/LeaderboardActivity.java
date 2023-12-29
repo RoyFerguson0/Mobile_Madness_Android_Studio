@@ -96,7 +96,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         lblFallingSkyHighScore = findViewById(R.id.lblFallingSkyHighScore);
         lblMathsHighScoreOne = findViewById(R.id.lblMathsHighScoreOne);
         lblMathsHighScoreTwo = findViewById(R.id.lblMathsHighScoreTwo);
-        lblMathsHighScoreThree = findViewById(R.id.lblMathsTotalPoints);
+        lblMathsHighScoreThree = findViewById(R.id.lblMathsHighScoreThree);
         lblTotalQuestionsRight = findViewById(R.id.lblTotalQuestionsRight);
         lblPlayerName = findViewById(R.id.lblPlayerName);
 
@@ -125,5 +125,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         startActivity(MenuScreen);
     }
 
+
+    public void navFacebook(View view)
+    {
+        // Create an action
+        Intent FacebookScreen = new Intent(getApplicationContext(), FacebookActivity.class);
+        // Tell it to do it
+        startActivity(FacebookScreen);
+    }
 
 }

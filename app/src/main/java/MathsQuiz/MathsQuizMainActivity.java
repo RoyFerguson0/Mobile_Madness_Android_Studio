@@ -291,6 +291,24 @@ public void writeScoreToFile(String correct, String total){
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
+        }else if(currectTotalValue == totalValue){
+            if(correct2 > score1 && total2 > score2){
+                // Writting out to the Text file
+                try {
+                    outputStream = openFileOutput("MathsGameTotalScore", Context.MODE_PRIVATE);
+
+                    outputStream.write(correct.getBytes());
+                    outputStream.write("\n".getBytes());
+                    outputStream.write(total.getBytes());
+                    outputStream.write("\n".getBytes());
+                    outputStream.close();
+
+                } catch (Exception ex) {
+                    // SnackBar to tell user that there is no text file
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.tv_score), R.string.WriteToFileError, Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
         }
     }
 }

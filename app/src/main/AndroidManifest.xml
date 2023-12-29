@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="Starter.FacebookActivity"
+            android:exported="false" />
+        <activity
             android:name="Starter.LeaderboardActivity"
             android:exported="false" />
         <activity
@@ -59,7 +62,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>
