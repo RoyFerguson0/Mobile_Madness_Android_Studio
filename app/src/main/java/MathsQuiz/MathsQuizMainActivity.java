@@ -115,10 +115,10 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                     System.out.println(score1 + " test2 " + score2 + " test3 " + score3);
             }catch(Exception ex){
             }
-
-            score1 = stored2[0];
+            Arrays.sort(stored2);
+            score1 = stored2[2];
             score2 = stored2[1];
-            score3 = stored2[2];
+            score3 = stored2[0];
             String highScore = tv_score.getText().toString();
             int intHighScore = Integer.parseInt(highScore);
 
@@ -138,7 +138,7 @@ public class MathsQuizMainActivity extends AppCompatActivity {
                     snackbar.show();
                 }
             }else {
-                Arrays.sort(stored2);
+//                Arrays.sort(stored2);
 
                 if(intHighScore > score1){
                     score1 = intHighScore;
