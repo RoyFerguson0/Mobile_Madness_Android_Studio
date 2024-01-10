@@ -140,17 +140,23 @@ public class MathsQuizMainActivity extends AppCompatActivity {
             }else {
 //                Arrays.sort(stored2);
 
-                if(intHighScore > score1){
-                    score1 = intHighScore;
+                if(intHighScore > score3){
+                    score3 = intHighScore;
                 }else if (intHighScore > score2){
                     score2 = intHighScore;
-                }else if (intHighScore > score3){
-                    score3 = intHighScore;
+                }else if (intHighScore > score1){
+                    score1 = intHighScore;
                 }
 
-                String score4 = String.valueOf(score1);
-                String score5 = String.valueOf(score2);
-                String score6 = String.valueOf(score3);
+                stored2[0] = score1;
+                stored2[1] = score2;
+                stored2[2] = score3;
+                Arrays.sort(stored2);
+
+                String score4 = String.valueOf(stored2[2]);
+                String score5 = String.valueOf(stored2[1]);
+                String score6 = String.valueOf(stored2[0]);
+
 
                 // Writting out to the Text file
                 try {
@@ -212,6 +218,8 @@ public class MathsQuizMainActivity extends AppCompatActivity {
 
         }
     };
+
+
 
 public void writeScoreToFile(String correct, String total){
     String[] stored = new String[2];
