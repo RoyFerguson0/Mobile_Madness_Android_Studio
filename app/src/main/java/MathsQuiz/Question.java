@@ -30,20 +30,14 @@ public class Question {
 
         String retry = "retry";
         String operator = "";
-        System.out.println("YOU GOT TO HERERERERERE");
-        Log.i("FIRST MESSAGE", "YOU GOT TO HERERERERERERE");
+
         while(retry.equals("retry")) {
             this.firstNumber = randomNumberMaker.nextInt(upperLimit);
             this.secondNumber = randomNumberMaker.nextInt(upperLimit);
 
-            System.out.println("FirstNumber is :::::::: " + this.firstNumber);
-            Log.i("FIRST Number", "FirstNumber is :::::::: " + this.firstNumber);
-            Log.i("SECOND Number", "SecondNumber is :::::::: " + this.secondNumber);
-
             // Get the Operator
             try {
                 operator = RandomOperator(this.firstNumber, this.secondNumber);
-                Log.i("Operator", "Operator is :::::::: " + operator);
                 retry = operator;
             }catch (Exception ex){
                 retry = "retry";
@@ -56,27 +50,29 @@ public class Question {
             // Get the Answer to Question
             this.answer = QuestionResult(this.firstNumber, operator, this.secondNumber);
 
-           // this.answer = this.firstNumber + this.secondNumber;
-
-
+            // Get the Question
             this.questionPhase = firstNumber + operator + secondNumber + " = ";
 
+            // Get the random number out of four which is where the correct answer will be stored.
             this.answerPosition = randomNumberMaker.nextInt(4);
             this.answerArray = new int[]{0, 1, 2, 3};
 
+            // Add to the answer values
             this.answerArray[0] = answer + 1;
             this.answerArray[1] = answer + 10;
             this.answerArray[2] = answer - 5;
             this.answerArray[3] = answer + 2;
 
+            // Shuffle array
             this.answerArray = shuffleArray(this.answerArray);
-
+            // add the answerPosition as the correct answer to question
             answerArray[answerPosition] = answer;
         }
     }
 
     public int QuestionResult(int firstNumber, String operator, int secondNumber){
 
+        // Returning the Question answer depending on operator
         switch (operator){
             case "+":
                 return firstNumber + secondNumber;
@@ -99,66 +95,36 @@ public class Question {
         double questionAnswer = 0;
         final int random = new Random().nextInt((max - min) + 1) + min;
 
+        // Getting the random operator making sure that calculation can be done as it shouldn't give negative answers or decimal answers.
         switch (random) {
             case 1:
-                //result.setText("+");
-                // TextView answer = (TextView) findViewById(R.id.txtResult);
-               // questionAnswer = firstNumber + secondNumber;
-
-                Log.i("+ OPERATOR", "+ Operator");
                 return "+";
             case 2:
-
-               // result.setText("-");
-                //TextView answer1 = (TextView) findViewById(R.id.txtResult);
-
                 int ans = firstNumber - secondNumber;
-
                 if (ans < 0) {
-               //     startUp();
-                    Log.i("- OPERATOR", "- Operator ::::::: " + ans);
                     return "retry";
                 } else {
-                    // answer1.setText(" = " + Integer.toString(ans));
-               //     questionAnswer = Integer.parseInt(result1.getText().toString()) - Integer.parseInt(result2.getText().toString());
-                    Log.i("- OPERATOR2", "- Operator ::::::: " + ans);
                     return "-";
                 }
             case 3:
-            //    result.setText("*");
-                //TextView answer2 = (TextView) findViewById(R.id.txtResult);
-            //    questionAnswer = Integer.parseInt(result1.getText().toString()) * Integer.parseInt(result2.getText().toString());
-                Log.i("* OPERATOR", "* Operator ::::::: ");
                 return "*";
-             //   break;
             case 4:
-           //     result.setText("/");
-                // TextView answer3 = (TextView) findViewById(R.id.txtResult);
                 questionAnswer = firstNumber / secondNumber;
 
                 FindWholeNum = firstNumber % secondNumber;
                 if (FindWholeNum != 0) {
-                   // startUp();
-                    Log.i("/ OPERATOR", "/ Operator ::::::: " + questionAnswer);
                     return "retry";
                 } else {
-                 //   questionAnswer = Integer.parseInt(result1.getText().toString()) / Integer.parseInt(result2.getText().toString());
                     if(questionAnswer >= 0) {
-                        Log.i("/ OPERATOR2", "/ Operator ::::::: " + questionAnswer);
                         return "/";
                     }else{
-                        Log.i("/ OPERATOR3", "/ Operator ::::::: " + questionAnswer);
                         return "retry";
                     }
                 }
-
-          //      break;
             default:
-                //result.setText("Error");
                 return "retry";
-            //    break;
         }
-    }
+    } // end RandomOperator
 
     private int [] shuffleArray(int[] array){
         int index, temp;

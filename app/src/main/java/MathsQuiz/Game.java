@@ -23,12 +23,15 @@ public class Game {
     }
 
     public void makeNewQuestion() {
+        // getting the question
         currentQuestion = new Question( totalQuestions * 2 + 5);
+        // adding 1 to questions asked
         totalQuestions++;
         questions.add(currentQuestion);
 
     }
 
+    // checking that selected answer is correct answer by comparing results.
     public boolean checkAnswer(int submittedAnswer) {
         boolean isCorrect;
         if (currentQuestion.getAnswer() == submittedAnswer) {
